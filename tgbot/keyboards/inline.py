@@ -51,8 +51,24 @@ async def create_inline_kb_time_delivery():
 async def create_inline_kb_sizes(style: str, capsule_size: str):
     # запрос доступных размеров одежды в капсулах определенного стиля и размера
     keyboard = InlineKeyboardMarkup(row_width=2)
-    sizesM = ["XS", "S", "M", "l"]
+    constSizes = ["XS", "S", "M", "l", "XL"]
+    sizesM = ["M", "l", "XL"]
     sizesW = ["S", "M", "L"]
+    iterM = iter(sizesM)
+    iterW = iter(sizesW)
+    i = 0
+    while i < len(constSizes):
+        sizeM = next(iterM)
+        sizeW = next(iterW)
+        if sizeM != constSizes[i]:
+            sizesM.insert(i, "-")
+        if sizeW != constSizes[i]:
+            sizesW.insert(i, "-")
+        i += 1
+
+
+    sizesMres = ["XS", "-", "M", "l", "XL"]
+    sizesWres = ["-", "S", "M", "L", "-"]
     keyboard.row(InlineKeyboardButton("Мужские размеры", callback_data="мужские"),
                  InlineKeyboardButton("Женские размеры", callback_data="женские"))
     # i = 0

@@ -7,7 +7,7 @@ from tgbot.misc.states import StatesOfMenu
 
 
 async def user_start(message: Message, state: FSMContext):
-    await state.update_data(is_logged='false')
+    await state.update_data(is_logged='true')
     await message.answer("Это турбопиздатый бот, через который можно "
                          "офформить подписку на ебейшую одежду!",
                          reply_markup=menuKeyBoard)
