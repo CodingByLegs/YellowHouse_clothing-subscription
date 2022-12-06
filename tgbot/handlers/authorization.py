@@ -7,7 +7,7 @@ from aiogram.types import Message
 from tgbot.keyboards.reply import registerButton, sharePhoneNumber, menuKeyBoard, menuKeyBoardAuthorizated
 from tgbot.misc.states import AuthorizationUser, StatesOfMenu
 
-users : dict = {'test': '123', '!Мираж': 'карта говна'}
+users: dict = {'test': '123', '!Мираж': 'карта говна'}
 
 
 async def Start(message: Message):
@@ -35,6 +35,7 @@ async def AuthorizationPassword(message: Message, state: FSMContext):
         return
     await StatesOfMenu.menu.set()
     await state.update_data(password=message.text)
+    await state.update_data(is_logged='true')
     await message.answer("Вы в системе...",
                          reply_markup=menuKeyBoardAuthorizated)  # поменять!
 
@@ -82,6 +83,7 @@ async def CreateNewUserPassword(message: Message, state: FSMContext):
     phoneNumber = dataFromState['userLogin']
     password = message.text
     # запрос на создание нового пользователя
+    await state.update_data(is_logged='true')
     await message.answer(f"Вы успешно зарегистрированы!\n"
                          f"логин: {phoneNumber}, пароль: {password}",
                          reply_markup=menuKeyBoardAuthorizated)

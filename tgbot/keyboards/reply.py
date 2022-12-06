@@ -1,15 +1,17 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-startMenuButtonNames = ["Каталог", "Авторизация"]
+startMenuButtonNames = ["", ""]
 
-button1 = KeyboardButton("Авторизация")
-button2 = KeyboardButton("Каталог")
-button3 = KeyboardButton("Личный кабинет")
+button1 = KeyboardButton("Оформить подписку")
+button2 = KeyboardButton("F.A.Q.")
+button3 = KeyboardButton("Авторизация")
+button4 = KeyboardButton("Личный кабинет")
 
-menuKeyBoard = ReplyKeyboardMarkup(resize_keyboard=True)
-for name in startMenuButtonNames:
-    menuKeyBoard.add(KeyboardButton(name))
-menuKeyBoardAuthorizated = ReplyKeyboardMarkup(resize_keyboard=True).add(button2).add(button3)
+
+menuKeyBoard = ReplyKeyboardMarkup(resize_keyboard=True).add(button1).row(button2, button3)
+menuKeyBoardAuthorizated = ReplyKeyboardMarkup(resize_keyboard=True).add(button1, button2).add(button4)
+
+
 
 registerButton = ReplyKeyboardMarkup(resize_keyboard=True).add(KeyboardButton("Регистрация"))
 sharePhoneNumber = ReplyKeyboardMarkup(
