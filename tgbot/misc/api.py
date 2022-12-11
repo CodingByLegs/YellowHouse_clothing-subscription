@@ -5,6 +5,7 @@ import requests
 
 from tgbot.config import API_data, load_config
 from tgbot.models.capsule import Capsule
+from tgbot.models.clothes import Clothes
 from tgbot.models.order import Order
 from tgbot.models.user import User
 
@@ -72,7 +73,7 @@ class API:
         return Order(response.json())
 
     def getOrderById(self, orderId):
-        response = requests.get(self.api.url + '/orders' + orderId)
+        response = requests.get(self.api.url + '/orders/' + orderId)
         logger.info(f"getOrderById, orderID:{orderId}, response:{response.json()}")
         return Order(response.json())
 
@@ -113,6 +114,7 @@ class API:
     def getOrders(self):
         response = requests.get(self.api.url + '/orders')
         orders = []
+        #logger.info(f"response: {response.json()}")
         for order in response.json():
             orders.append(Order(order))
         return orders
@@ -120,5 +122,7 @@ class API:
     def getClothesById(self, id):
         response = requests.get(self.api.url + '/clothes/' + id)
         logger.info(f"getClothesById, id:{id}, response:{response.json()}")
+        return Clothes(response.json())
+
 
 api = API()

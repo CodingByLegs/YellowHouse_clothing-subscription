@@ -26,8 +26,6 @@ class Subscribe(StatesGroup):
     deliveryDate = State()
     deliveryTime = State()
 
-class Styles(StatesGroup):
-    chooseStyles = State()
-    casual = State()
-    streetwear = State()
-    vintage = State()
+class CollectOrder(StatesGroup):
+    getOrder = State()
+    collectOrder = State()

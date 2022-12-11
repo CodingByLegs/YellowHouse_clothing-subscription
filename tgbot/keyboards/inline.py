@@ -24,11 +24,20 @@ inline_btn9 = InlineKeyboardButton("Да", callback_data="yes")
 inline_btn10 = InlineKeyboardButton("Нет", callback_data="no")
 inline_kb_yes_no = InlineKeyboardMarkup().add(inline_btn9, inline_btn10)
 
-inline_btn11 = InlineKeyboardButton("Принять", callback_data="accept")
-inline_kb_accept = InlineKeyboardMarkup().add(inline_btn11)
+
 
 
 logger = logging.getLogger(__name__)
+
+async def create_inline_kb_accept(orderId):
+    inline_btn = InlineKeyboardButton("Принять", callback_data=orderId)
+    inline_kb_accept = InlineKeyboardMarkup().add(inline_btn)
+    return inline_kb_accept
+
+async def create_inline_order_collected(orderId):
+    inline_btn = InlineKeyboardButton("Заказ собран", callback_data=orderId)
+    inline_kb_order_collected = InlineKeyboardMarkup().add(inline_btn)
+    return inline_kb_order_collected
 
 async def create_inline_kb_date_delivery():
     today: datetime = datetime.date.today()
