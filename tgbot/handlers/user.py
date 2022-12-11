@@ -2,6 +2,7 @@ from aiogram import Dispatcher, bot
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 
+from tgbot.config import Config
 from tgbot.keyboards.reply import menuKeyBoard
 from tgbot.misc.states import StatesOfMenu
 
@@ -12,6 +13,8 @@ async def user_start(message: Message, state: FSMContext):
                          "офформить подписку на ебейшую одежду!",
                          reply_markup=menuKeyBoard)
     await StatesOfMenu.menu.set()
+
+
 
 async def getPhoto(mesage: Message):
     #url = "AgACAgIAAxkBAAIDMWOGDweNlPM90jGUDdq4oobUIYZsAAJJwTEbl3UwSFRaKiNIWTKWAQADAgADeAADKwQ"
