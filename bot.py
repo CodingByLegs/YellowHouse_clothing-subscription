@@ -10,6 +10,7 @@ from tgbot.filters.admin import AdminFilter
 from tgbot.filters.warehouse_worker import warehouseWorkerFilter
 from tgbot.handlers.FAQ import register_FAQ
 from tgbot.handlers.Styles import register_Styles
+from tgbot.handlers.account import register_account
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.authorization import register_Authorization
 from tgbot.handlers.echo import register_echo
@@ -36,6 +37,7 @@ def register_all_handlers(dp):
     register_warehouse_worker(dp)
     register_user(dp)
     register_FAQ(dp)
+    register_account(dp)
     register_subscribe(dp)
     register_Authorization(dp)
     register_echo(dp)

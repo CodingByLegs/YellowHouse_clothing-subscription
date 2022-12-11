@@ -9,6 +9,7 @@ class Order:
     size: str
     deliveryDateToClient: str
     deliveryDateBack: str
+    status: str
 
     def __init__(self, json: dict):
         self.id = json['id']
@@ -18,3 +19,4 @@ class Order:
         self.size = json['size']
         self.deliveryDateToClient = json['deliveryDateToClient']
         self.deliveryDateBack = json['deliveryDateBack']
+        self.status = json['status']

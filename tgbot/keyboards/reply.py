@@ -18,6 +18,14 @@ FAQ = ["Как происходит доставка?", "Как купить в�
 for text in FAQ:
     FAQkeyboard.add(KeyboardButton(text))
 
+btn_account1 = KeyboardButton("История заказов")
+btn_account2 = KeyboardButton("Статус подписки")
+btn_account3 = KeyboardButton("Назад")
+accountKeyboard = ReplyKeyboardMarkup(resize_keyboard=True).add(btn_account1, btn_account2).add(btn_account3)
+
+btn_back = KeyboardButton("Назад")
+keyboardBack = ReplyKeyboardMarkup(resize_keyboard=True).add(btn_back)
+
 async def create_reply_order_collected(orderId):
     button = KeyboardButton(f"Заказ №{orderId} собран")
     keyBoard = ReplyKeyboardMarkup(resize_keyboard=True).add(button)

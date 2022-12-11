@@ -3,9 +3,13 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 class StatesOfMenu(StatesGroup):
     menu = State()
     authorization = State()
-    styles = State()
     FAQ = State()
     getSubscribe = State()
+    personalAccount = State()
+
+class PersonalAccount(StatesGroup):
+    ordersHistory = State()
+    subscribeStatus = State()
 
 class AuthorizationUser(StatesGroup):
     start = State()

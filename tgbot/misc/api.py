@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import requests
 
@@ -77,16 +78,52 @@ class API:
         logger.info(f"getOrderById, orderID:{orderId}, response:{response.json()}")
         return Order(response.json())
 
+    def getOrdresByUserId(self, userId):
+        logger.info(f"getOrdresByUserId, uesrID:{userId}")
+        response = requests.get(self.api.url + '/orders/user-orders/' + userId)
+        logger.info(f"response:{response.json()}")
+        orders = []
+        for order in response.json():
+            orders.append(Order(order))
+        return orders
+
+    def getCurrentUserSubscribe(self, userId):
+        userOrders = api.getOrdresByUserId(userId)
+        lastOrderDate = datetime(year=2020, month=1, day=1)
+        if len(userOrders) == 0:
+            return None
+        lastOrder = userOrders[0]
+        for order in userOrders:
+            if order.status == "WITH_USER":
+                return order
+            curOrderDate = datetime(year=int(order.deliveryDateBack[0:3]),
+                                    month=int(order.deliveryDateBack[5:6]),
+                                    day=int(order.deliveryDateBack[8:9]))
+            if order.status == "CANCELED" and curOrderDate > lastOrderDate:  #поиск последней истекшей подписки
+                lastOrderDate = curOrderDate
+                lastOrder = order
+        return lastOrder
+
+    def getOrders(self):
+        response = requests.get(self.api.url + '/orders')
+        orders = []
+        #logger.info(f"response: {response.json()}")
+        for order in response.json():
+            orders.append(Order(order))
+        return orders
+
+
     def addOrderDeiveryDate(self, orderId, deliveryDate):
         response = requests.patch(self.api.url + '/orders/' + orderId,
                                   json={'deliveryDateToClient': deliveryDate})
         logger.info(f"addOrderDeiveryDate, orderId={orderId}, deliveryDate={deliveryDate} response: {response.json()}")
         return response
 
-    def getRandomCapsule(self, type, size):
+    def getRandomCapsule(self, type, size, clostehsSize):
         response = requests.get(self.api.url + '/capsules/random-capsule',
                                 params={'type': type,
-                                        'size': size})
+                                        'size': size,
+                                        'clothesSize': clostehsSize})
         if response.status_code == 200:
             logger.info(f"getRandomCapsule, capsule founded, id: {response.json()}")
         else:
@@ -110,14 +147,6 @@ class API:
             time.append(new_time[0] + ':' + new_time[1])
         logger.info(f"getDeliveriesByDate, return times: {time}")
         return time
-
-    def getOrders(self):
-        response = requests.get(self.api.url + '/orders')
-        orders = []
-        #logger.info(f"response: {response.json()}")
-        for order in response.json():
-            orders.append(Order(order))
-        return orders
 
     def getClothesById(self, id):
         response = requests.get(self.api.url + '/clothes/' + id)

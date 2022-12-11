@@ -77,14 +77,14 @@ async def getNewAddress(message: Message, state: FSMContext):
     state_data = await state.get_data()
     user = api.getUserByPhoneNumber(state_data['userLogin'])
     api.addNewAddress(user.id, message.text)  # заносим новый адрес в базу
-    await message.answer("Теперь этот адрес будет считаться основным")
+    await message.answer(f"Теперь этот адрес будет считаться основным: {message.text}")
     await chooseDateDelivery(message, state)
 
 
 async def chooseDateDelivery(message: Message, state: FSMContext):
     await Subscribe.deliveryDate.set()
     state_data = await state.get_data()
-    capsule = api.getRandomCapsule(state_data['type'], state_data['capsule_size'])
+    capsule = api.getRandomCapsule(state_data['type'], state_data['capsule_size'], state_data['clothes_size'])
     user = api.getUserByPhoneNumber(state_data['userLogin'])
     order = api.createOrder(user.id, capsule.id)
     await state.update_data(cur_order_id=order.id)
