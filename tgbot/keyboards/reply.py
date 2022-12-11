@@ -7,9 +7,16 @@ button2 = KeyboardButton("F.A.Q.")
 button3 = KeyboardButton("Авторизация")
 button4 = KeyboardButton("Личный кабинет")
 
+menuKeyBoard = ReplyKeyboardMarkup(resize_keyboard=True).add(button3).row(button2, button1)
+menuKeyBoardAuthorizated = ReplyKeyboardMarkup(resize_keyboard=True).add(button1).add(button2, button4)
 
-menuKeyBoard = ReplyKeyboardMarkup(resize_keyboard=True).add(button1).row(button2, button3)
-menuKeyBoardAuthorizated = ReplyKeyboardMarkup(resize_keyboard=True).add(button1, button2).add(button4)
+
+FAQkeyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+FAQ = ["Как происходит доставка?", "Как купить вещь из капсулы, которая мне понравилась?",
+       "Что будет если я испорчу вещь?", "Что делать если я не смогу отдать/получить вещи в установленный срок?",
+       "Назад"]
+for text in FAQ:
+    FAQkeyboard.add(KeyboardButton(text))
 
 async def create_reply_order_collected(orderId):
     button = KeyboardButton(f"Заказ №{orderId} собран")
