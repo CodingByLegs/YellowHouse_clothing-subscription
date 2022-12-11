@@ -14,7 +14,7 @@ class Capsule:
         self.id = json['id']
         self.type = json['type']
         self.price = json['price']
-        self.size = json['price']
+        self.size = json['size']
         self.clothesSize = json['clothesSize']
         self.status = json['status']
         self.clothesInCapsulaIds = list(json['clothesInCapsulaIds'])
