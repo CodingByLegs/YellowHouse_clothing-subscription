@@ -21,7 +21,8 @@ from tgbot.misc.states import CollectOrder
 
 async def wh_worker_start(message: Message, state: FSMContext):
     flag = True
-    await message.answer(f"Првиет, работник склада,твой chat id - {message.chat.id}")
+    await message.answer(f"Првиет, работник склада",
+                         reply_markup=types.ReplyKeyboardRemove())
     config: Config = message.bot.get('config')
     await waitNewOrder(message, state)
 
